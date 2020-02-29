@@ -29,5 +29,6 @@ gpx.close();
 
 ## Author
 
-* **Daniel Mironow** - contact@flate.io
-[Flate Industries] - (flate.io)
+* **SL7** - contact@flate.io
+[Flate Industries](flate.io)
+Website under construcion
