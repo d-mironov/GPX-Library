@@ -10,7 +10,7 @@ You need TinyGPS++ and the standard SD Library installed first before using this
 (optional) you can also use a button to close the file
 
 # Usage
-```cpp
+```C++
 GPX gpx;
 /* The DelayMode specifies the delay to write the Data in
  * The Write Mode specifies the different data to write into the file
