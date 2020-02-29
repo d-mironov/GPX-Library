@@ -14,10 +14,8 @@
 #include "TinyGPS++.h"
 #include "SD.h"
 
-String FILENAME;
-bool fileValid = false;
-bool fileClosed = false;
 
+/*
 enum timezones {
 	TZ_GMT = "UTC+0", TZ_ADT = "UTC-3", TZ_AET = "UTC+11",
 	TZ_MEZ = "UTC+1", TZ_CAT = "UTC+2", TZ_CET = "UTC+1",
@@ -27,12 +25,12 @@ enum timezones {
 	TZ_MST = "UTC-7", TZ_PT = "UTC-8"
 };
 
+*/
+
 enum data_mode {
-	MODE1,
-	MODE2,
-	MODE3,
-	MODE4,
-	MODE6
+	MODE1 = 0,
+	MODE2 = 1,
+	MODE3 = 2
 };
 
 enum write_delay {
@@ -49,19 +47,7 @@ struct data {
 	int alt;
 	String date;
 };
-String base_struct_start[] = {
-	"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n",
-	"<gpx version=\"1.1\" creator=\"$USER\">\n",
-	"  <metadata> <!-- Metadaten --> </metadata>\n",
-	"  <trk>\n",
-	"    <trkseg>\n"
-};
 
-String base_struct_end[] = {
-	"    </trkseg>\n",
-	"  </trk>\n",
-	"</gpx>\n"
-};
 
 class GPX;
 
@@ -69,10 +55,26 @@ class GPX;
 class GPX {
 public :
 	File file;
-	data_mode mode;
-	timezones zone;
+	int mode;
+	bool isvalidFile = false;
+	bool isclosedFile = false;
 
-	void init(write_delay delay, data_mode mode, timezones zone, File file);
+	String base_struct_start[5] = {
+		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n",
+		"<gpx version=\"1.1\" creator=\"$USER\">\n",
+		"  <metadata> <!-- Metadaten --> </metadata>\n",
+		"  <trk>\n",
+		"    <trkseg>\n"
+	};
+
+	String base_struct_end[3] = {
+		"    </trkseg>\n",
+		"  </trk>\n",
+		"</gpx>\n"
+	};
+	//timezones zone;
+
+	void init(write_delay delay, data_mode mode, File file);
 	void write(TinyGPSPlus gps);
 	void close(void);
 
