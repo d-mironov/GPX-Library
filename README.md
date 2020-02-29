@@ -26,3 +26,8 @@ gpx.write(gps);
 // Writes the "ending" of this fileformat and closes the file after that
 gpx.close();
 ```
+
+## Author
+
+* **Daniel Mironow** - contact@flate.io
+[Flate Industries] - (flate.io)
