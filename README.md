@@ -23,7 +23,7 @@ gpx.init(DelayMode, Writemode, file);
  */
 gpx.write(gps);
 
-// Writes the "ending" of this fileformat and closes the file after that
+// Writes the "ending" of this fileformat and closes the file
 gpx.close();
 ```
 
