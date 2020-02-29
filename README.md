@@ -30,5 +30,5 @@ gpx.close();
 ## Author
 **SL7** - contact@flate.io
 
-[Flate Industries](flate.io)  -   Website under construction
+[Flate Industries](https://flate.io)  -   Website under construction
 
