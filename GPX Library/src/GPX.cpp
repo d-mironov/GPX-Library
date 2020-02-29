@@ -19,7 +19,7 @@ void GPX::init(write_delay delay, data_mode mode, timezones zone, File file) {
 }
 
 void GPX::write(TinyGPSPlus gps) {
-	if (fileValid) {
+	if (fileValid && !fileClosed) {
 		for (String line : base_struct_start) {
 			file.print(line);
 		}
@@ -51,6 +51,7 @@ void GPX::close() {
 			file.print(line);
 		}
 		file.close();
+		fileClosed = true;
 	} else {
 		Serial.println("[-] Cannot close the file becaue no SD Card was initialized.");
 	}

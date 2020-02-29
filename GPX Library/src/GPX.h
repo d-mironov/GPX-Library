@@ -16,6 +16,7 @@
 
 String FILENAME;
 bool fileValid = false;
+bool fileClosed = false;
 
 enum timezones {
 	TZ_GMT = "UTC+0", TZ_ADT = "UTC-3", TZ_AET = "UTC+11",
