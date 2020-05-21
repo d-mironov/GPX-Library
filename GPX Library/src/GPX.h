@@ -9,11 +9,9 @@
  * version : v0.1
  */
 
-
 #include "Arduino.h"
 #include "TinyGPS++.h"
 #include "SD.h"
-
 
 /*
 enum timezones {
@@ -27,59 +25,57 @@ enum timezones {
 
 */
 
-enum data_mode {
-	MODE1 = 0,
-	MODE2 = 1,
-	MODE3 = 2
+enum data_mode
+{
+    MODE1 = 0,
+    MODE2 = 1,
+    MODE3 = 2
 };
 
-enum write_delay {
-	NO_DELAY = 0,
-	DELAY_2IT = 2000,
-	DELAY_3IT = 3000,
-	DELAY_4IT = 4000,
-	DELAY_5IT = 5000
+enum write_delay
+{
+    NO_DELAY = 0,
+    DELAY_2IT = 2000,
+    DELAY_3IT = 3000,
+    DELAY_4IT = 4000,
+    DELAY_5IT = 5000
 };
 
-struct data {
-	float lat;
-	float lng;
-	int alt;
-	String date;
+struct data
+{
+    float lat;
+    float lng;
+    int alt;
+    String date;
 };
-
 
 class GPX;
 
+class GPX
+{
+public:
+    File file;
+    int mode;
+    bool isvalidFile = false;
+    bool isclosedFile = true;
+    String foldername;
 
-class GPX {
-public :
-	File file;
-	int mode;
-	bool isvalidFile = false;
-	bool isclosedFile = false;
+    String base_struct_start[5] = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n",
+        "<gpx version=\"1.1\" creator=\"$USER\">\n",
+        "  <metadata> <!-- Metadaten --> </metadata>\n",
+        "  <trk>\n",
+        "    <trkseg>\n"};
 
-	String base_struct_start[5] = {
-		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n",
-		"<gpx version=\"1.1\" creator=\"$USER\">\n",
-		"  <metadata> <!-- Metadaten --> </metadata>\n",
-		"  <trk>\n",
-		"    <trkseg>\n"
-	};
+    String base_struct_end[3] = {
+        "    </trkseg>\n",
+        "  </trk>\n",
+        "</gpx>\n"};
+    //timezones zone;
 
-	String base_struct_end[3] = {
-		"    </trkseg>\n",
-		"  </trk>\n",
-		"</gpx>\n"
-	};
-	//timezones zone;
-
-	void init(write_delay delay, data_mode mode, File file);
-	void write(TinyGPSPlus gps);
-	void close(void);
-
+    void init(String foldername, write_delay delay, data_mode mode);
+    bool gotGPSLock(HardwareSerial GPSSerial, TinyGPSPlus gps);
+    String setFile(File file);
+    void write(TinyGPSPlus gps);
+    void close(void);
 };
-
-
-
-
